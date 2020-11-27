@@ -2,6 +2,8 @@ package cn.edu.tfswufe.pm.goodweather.util;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,6 +11,7 @@ import org.json.JSONObject;
 import cn.edu.tfswufe.pm.goodweather.db.City;
 import cn.edu.tfswufe.pm.goodweather.db.County;
 import cn.edu.tfswufe.pm.goodweather.db.Province;
+import cn.edu.tfswufe.pm.goodweather.gson.Weather;
 
 /**
  * 省级数据解析工具
@@ -92,5 +95,22 @@ public class Utility {
             }
         }
         return false;
+    }
+
+    /**
+     * 将返回的JSON数据解析成Weather实体类
+     * @param response 响应数据
+     * @return Weather对象
+     */
+    public static Weather handleWeatherResponse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            String weatherContent = jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent, Weather.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

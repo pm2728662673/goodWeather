@@ -1,12 +1,12 @@
 package cn.edu.tfswufe.pm.goodweather.db;
 
-import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
 
 /**
  * @Author pangmin
  * @Date 2020/11/13 16:51
  **/
-public class County extends DataSupport {
+public class County extends LitePalSupport {
 
     //县id
     private int id;
